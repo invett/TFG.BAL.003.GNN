@@ -1,0 +1,139 @@
+# Default Configuration for JAAD GNN Experiments
+# This file contains all configurable parameters for the pedestrian crossing prediction system
+
+# ============================================================================
+# GRAPH CONFIGURATION
+# ============================================================================
+graph:
+  # Spatial graph type (0=Angie, 1=Adrián, 2=Combination of 0 and 1)
+  type: 2
+  
+  # Temporal dependencies type:
+  # 0 = No temporal connections
+  # 1 = Connection between pedestrian across frames
+  # 2 = Complete connection between all nodes across frames
+  # 3 = Sliding windows
+  # 4 = Multi-pedestrian scene-level temporal windows
+  temporal_type: 3
+  
+  # Multi-pedestrian mode
+  # true = Graph per scene (multi-pedestrian)
+  # false = Graph per pedestrian/temporal (single-pedestrian)
+  multi_pedestrian: false
+  
+  # Sliding window parameters (only used when temporal_type=3)
+  window_size: 3
+  window_step: 1
+
+# ============================================================================
+# MODEL CONFIGURATION
+# ============================================================================
+model:
+  # Model architecture: GCN, GAT, or GraphConv
+  name: "GCN"
+  
+  # Input feature dimension (number of features per node)
+  c_in: 24
+  
+  # Hidden layer dimension
+  c_hidden: 128
+  
+  # Output dimension (1 for binary classification)
+  c_out: 1
+  
+  # Dropout rate for linear layers
+  dp_rate_linear: 0.5
+  
+  # Dropout rate for GNN layers
+  dp_rate: 0.2
+  
+  # Number of GNN layers
+  num_layers: 2
+
+# ============================================================================
+# DATASET CONFIGURATION
+# ============================================================================
+dataset:
+  # Dataset name (JAAD_14K, JAAD_16K, JAAD_18K, LING_14K)
+  name: "JAAD_14K"
+  
+  # Root folder for datasets
+  folder: "datasets"
+  
+  # Dataset paths - all available datasets
+  paths:
+    JAAD_14K:
+      train: "datasets/JAAD_14K_TRAIN.csv"
+      test: "datasets/TEST_JAAD_ALL.csv"
+    JAAD_16K:
+      train: "datasets/JAAD_16K_TRAIN.csv"
+      test: "datasets/TEST_JAAD_ALL.csv"
+    JAAD_18K:
+      train: "datasets/JAAD_18K_TRAIN.csv"
+      test: "datasets/TEST_JAAD_ALL.csv"
+    LING_14K:
+      train: "datasets/LINGUISTIC_JAAD_TRAIN_14K.csv"
+      test: "datasets/LINGUISTIC_TEST_JAAD_ALL.csv"
+
+# ============================================================================
+# TRAINING CONFIGURATION
+# ============================================================================
+training:
+  # Batch size for training
+  batch_size: 100
+  
+  # Maximum number of training epochs
+  max_epochs: 50
+  
+  # Directory for saving model checkpoints
+  checkpoint_path: "./checkpoints"
+  
+  # Learning rate for optimizer
+  learning_rate: 0.001
+  
+  # Patience for learning rate scheduler (ReduceLROnPlateau)
+  lr_scheduler_patience: 1
+  
+  # Patience for early stopping
+  early_stopping_patience: 3
+  
+  # Train/validation split ratio
+  train_val_split: 0.8
+  
+  # Number of workers for data loading
+  num_workers: 4
+  
+  # Random seed for reproducibility
+  seed: 42
+
+# ============================================================================
+# WANDB CONFIGURATION
+# ============================================================================
+wandb:
+  # Enable or disable Weights & Biases logging
+  enabled: true
+  
+  # WandB project name
+  project: "tfg"
+  
+  # WandB entity (organization/username) - leave null for default
+  entity: null
+  
+  # Whether to log model checkpoints to WandB
+  log_model: true
+  
+  # Tags for organizing experiments
+  tags: ["baseline"]
+
+# ============================================================================
+# EXPERIMENT CONFIGURATION
+# ============================================================================
+experiment:
+  # Run multiple seeds for statistical analysis
+  multi_seed: false
+  
+  # List of seeds to use for multi-seed experiments
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+  
+  # Clean processed data files before training
+  clean_processed: true

@@ -70,3 +70,10 @@ Thumbs.db
 /src/datasets/
 /src/tfg/
 /src/wandb/
+
+# Config runs (auto-generated)
+/configs/runs/
+
+# Checkpoints and results
+/checkpoints/
+/results/

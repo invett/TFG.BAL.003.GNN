@@ -1,0 +1,44 @@
+# GCN Spatial Baseline Configuration
+# Configuration for GCN model with spatial graph only (no temporal connections)
+
+graph:
+  type: 2  # Combination graph
+  temporal_type: 0  # No temporal connections
+  multi_pedestrian: false
+  window_size: 3
+  window_step: 1
+
+model:
+  name: "GCN"
+  c_in: 24
+  c_hidden: 64
+  c_out: 1
+  dp_rate_linear: 0.5
+  dp_rate: 0.2
+  num_layers: 3
+
+dataset:
+  name: "JAAD_14K"
+  folder: "datasets"
+
+training:
+  batch_size: 100
+  max_epochs: 50
+  checkpoint_path: "./checkpoints"
+  learning_rate: 0.001
+  lr_scheduler_patience: 1
+  early_stopping_patience: 3
+  train_val_split: 0.8
+  num_workers: 4
+  seed: 42
+
+wandb:
+  enabled: true
+  project: "tfg"
+  entity: null
+  log_model: true
+  tags: ["gcn", "spatial-only", "baseline"]
+
+experiment:
+  multi_seed: false
+  clean_processed: true
