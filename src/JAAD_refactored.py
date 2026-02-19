@@ -887,8 +887,8 @@ def update_config_from_args(config: Config, args: argparse.Namespace) -> Config:
     overrides = []
     
     # Helper to get arg value (handles dot notation in attribute names)
-    def get_arg(args_obj, name):
-        return getattr(args_obj, name, None)
+    def get_arg(arg_obj, name):
+        return getattr(arg_obj, name, None)
     
     # Graph overrides
     val = get_arg(args, 'graph.type')
