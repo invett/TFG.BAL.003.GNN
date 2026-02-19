@@ -886,83 +886,125 @@ def update_config_from_args(config: Config, args: argparse.Namespace) -> Config:
     """
     overrides = []
     
+    # Helper to get arg value (handles dot notation in attribute names)
+    def get_arg(args_obj, name):
+        return getattr(args_obj, name, None)
+    
     # Graph overrides
-    if args.graph.type is not None:
-        config.graph.type = args.graph.type
-        overrides.append(f"graph.type = {args.graph.type}")
-    if args.graph.temporal_type is not None:
-        config.graph.temporal_type = args.graph.temporal_type
-        overrides.append(f"graph.temporal_type = {args.graph.temporal_type}")
-    if args.graph.multi_pedestrian is not None:
-        config.graph.multi_pedestrian = args.graph.multi_pedestrian
-        overrides.append(f"graph.multi_pedestrian = {args.graph.multi_pedestrian}")
-    if args.graph.window_size is not None:
-        config.graph.window_size = args.graph.window_size
-        overrides.append(f"graph.window_size = {args.graph.window_size}")
-    if args.graph.window_step is not None:
-        config.graph.window_step = args.graph.window_step
-        overrides.append(f"graph.window_step = {args.graph.window_step}")
+    val = get_arg(args, 'graph.type')
+    if val is not None:
+        config.graph.type = val
+        overrides.append(f"graph.type = {val}")
+    
+    val = get_arg(args, 'graph.temporal_type')
+    if val is not None:
+        config.graph.temporal_type = val
+        overrides.append(f"graph.temporal_type = {val}")
+    
+    val = get_arg(args, 'graph.multi_pedestrian')
+    if val is not None:
+        config.graph.multi_pedestrian = val
+        overrides.append(f"graph.multi_pedestrian = {val}")
+    
+    val = get_arg(args, 'graph.window_size')
+    if val is not None:
+        config.graph.window_size = val
+        overrides.append(f"graph.window_size = {val}")
+    
+    val = get_arg(args, 'graph.window_step')
+    if val is not None:
+        config.graph.window_step = val
+        overrides.append(f"graph.window_step = {val}")
     
     # Model overrides
-    if args.model.name is not None:
-        config.model.name = args.model.name
-        overrides.append(f"model.name = {args.model.name}")
-    if args.model.c_hidden is not None:
-        config.model.c_hidden = args.model.c_hidden
-        overrides.append(f"model.c_hidden = {args.model.c_hidden}")
-    if args.model.num_layers is not None:
-        config.model.num_layers = args.model.num_layers
-        overrides.append(f"model.num_layers = {args.model.num_layers}")
-    if args.model.dp_rate is not None:
-        config.model.dp_rate = args.model.dp_rate
-        overrides.append(f"model.dp_rate = {args.model.dp_rate}")
-    if args.model.dp_rate_linear is not None:
-        config.model.dp_rate_linear = args.model.dp_rate_linear
-        overrides.append(f"model.dp_rate_linear = {args.model.dp_rate_linear}")
+    val = get_arg(args, 'model.name')
+    if val is not None:
+        config.model.name = val
+        overrides.append(f"model.name = {val}")
+    
+    val = get_arg(args, 'model.c_hidden')
+    if val is not None:
+        config.model.c_hidden = val
+        overrides.append(f"model.c_hidden = {val}")
+    
+    val = get_arg(args, 'model.num_layers')
+    if val is not None:
+        config.model.num_layers = val
+        overrides.append(f"model.num_layers = {val}")
+    
+    val = get_arg(args, 'model.dp_rate')
+    if val is not None:
+        config.model.dp_rate = val
+        overrides.append(f"model.dp_rate = {val}")
+    
+    val = get_arg(args, 'model.dp_rate_linear')
+    if val is not None:
+        config.model.dp_rate_linear = val
+        overrides.append(f"model.dp_rate_linear = {val}")
     
     # Dataset overrides
-    if args.dataset.name is not None:
-        config.dataset.name = args.dataset.name
-        overrides.append(f"dataset.name = {args.dataset.name}")
-    if args.dataset.folder is not None:
-        config.dataset.folder = args.dataset.folder
-        overrides.append(f"dataset.folder = {args.dataset.folder}")
+    val = get_arg(args, 'dataset.name')
+    if val is not None:
+        config.dataset.name = val
+        overrides.append(f"dataset.name = {val}")
+    
+    val = get_arg(args, 'dataset.folder')
+    if val is not None:
+        config.dataset.folder = val
+        overrides.append(f"dataset.folder = {val}")
     
     # Training overrides
-    if args.training.batch_size is not None:
-        config.training.batch_size = args.training.batch_size
-        overrides.append(f"training.batch_size = {args.training.batch_size}")
-    if args.training.max_epochs is not None:
-        config.training.max_epochs = args.training.max_epochs
-        overrides.append(f"training.max_epochs = {args.training.max_epochs}")
-    if args.training.learning_rate is not None:
-        config.training.learning_rate = args.training.learning_rate
-        overrides.append(f"training.learning_rate = {args.training.learning_rate}")
-    if args.training.seed is not None:
-        config.training.seed = args.training.seed
-        overrides.append(f"training.seed = {args.training.seed}")
-    if args.training.num_workers is not None:
-        config.training.num_workers = args.training.num_workers
-        overrides.append(f"training.num_workers = {args.training.num_workers}")
+    val = get_arg(args, 'training.batch_size')
+    if val is not None:
+        config.training.batch_size = val
+        overrides.append(f"training.batch_size = {val}")
+    
+    val = get_arg(args, 'training.max_epochs')
+    if val is not None:
+        config.training.max_epochs = val
+        overrides.append(f"training.max_epochs = {val}")
+    
+    val = get_arg(args, 'training.learning_rate')
+    if val is not None:
+        config.training.learning_rate = val
+        overrides.append(f"training.learning_rate = {val}")
+    
+    val = get_arg(args, 'training.seed')
+    if val is not None:
+        config.training.seed = val
+        overrides.append(f"training.seed = {val}")
+    
+    val = get_arg(args, 'training.num_workers')
+    if val is not None:
+        config.training.num_workers = val
+        overrides.append(f"training.num_workers = {val}")
     
     # WandB overrides
-    if args.wandb.enabled is not None:
-        config.wandb.enabled = args.wandb.enabled
-        overrides.append(f"wandb.enabled = {args.wandb.enabled}")
-    if args.wandb.project is not None:
-        config.wandb.project = args.wandb.project
-        overrides.append(f"wandb.project = {args.wandb.project}")
-    if args.wandb.entity is not None:
-        config.wandb.entity = args.wandb.entity
-        overrides.append(f"wandb.entity = {args.wandb.entity}")
+    val = get_arg(args, 'wandb.enabled')
+    if val is not None:
+        config.wandb.enabled = val
+        overrides.append(f"wandb.enabled = {val}")
+    
+    val = get_arg(args, 'wandb.project')
+    if val is not None:
+        config.wandb.project = val
+        overrides.append(f"wandb.project = {val}")
+    
+    val = get_arg(args, 'wandb.entity')
+    if val is not None:
+        config.wandb.entity = val
+        overrides.append(f"wandb.entity = {val}")
     
     # Experiment overrides
-    if args.experiment.multi_seed is not None:
-        config.experiment.multi_seed = args.experiment.multi_seed
-        overrides.append(f"experiment.multi_seed = {args.experiment.multi_seed}")
-    if args.experiment.clean_processed is not None:
-        config.experiment.clean_processed = args.experiment.clean_processed
-        overrides.append(f"experiment.clean_processed = {args.experiment.clean_processed}")
+    val = get_arg(args, 'experiment.multi_seed')
+    if val is not None:
+        config.experiment.multi_seed = val
+        overrides.append(f"experiment.multi_seed = {val}")
+    
+    val = get_arg(args, 'experiment.clean_processed')
+    if val is not None:
+        config.experiment.clean_processed = val
+        overrides.append(f"experiment.clean_processed = {val}")
     
     # Print overrides
     if overrides:

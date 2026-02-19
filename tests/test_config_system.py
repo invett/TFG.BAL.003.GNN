@@ -8,6 +8,9 @@ import yaml
 import sys
 import os
 
+# Constants
+EXPECTED_SEED_COUNT = 30  # Expected number of seeds in multi-seed experiments
+
 def test_yaml_files():
     """Test that all YAML files are valid."""
     print("Testing YAML files...")
@@ -114,7 +117,8 @@ def test_default_config():
     assert 'multi_seed' in config['experiment']
     assert 'seeds' in config['experiment']
     assert 'clean_processed' in config['experiment']
-    assert len(config['experiment']['seeds']) == 30, "Should have 30 seeds"
+    assert len(config['experiment']['seeds']) == EXPECTED_SEED_COUNT, \
+        f"Should have {EXPECTED_SEED_COUNT} seeds, found {len(config['experiment']['seeds'])}"
     
     print("  ✓ Default config has all required parameters")
     print("  All default configuration checks passed!\n")
