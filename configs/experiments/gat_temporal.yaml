@@ -1,0 +1,44 @@
+# GAT Temporal Configuration
+# Configuration for GAT model with temporal dependencies using sliding windows
+
+graph:
+  type: 2  # Combination graph
+  temporal_type: 3  # Sliding windows
+  multi_pedestrian: false
+  window_size: 5
+  window_step: 1
+
+model:
+  name: "GAT"
+  c_in: 24
+  c_hidden: 256
+  c_out: 1
+  dp_rate_linear: 0.5
+  dp_rate: 0.2
+  num_layers: 3
+
+dataset:
+  name: "JAAD_14K"
+  folder: "datasets"
+
+training:
+  batch_size: 64
+  max_epochs: 100
+  checkpoint_path: "./checkpoints"
+  learning_rate: 0.001
+  lr_scheduler_patience: 1
+  early_stopping_patience: 3
+  train_val_split: 0.8
+  num_workers: 4
+  seed: 42
+
+wandb:
+  enabled: true
+  project: "tfg"
+  entity: null
+  log_model: true
+  tags: ["gat", "temporal", "sliding-window"]
+
+experiment:
+  multi_seed: false
+  clean_processed: true
